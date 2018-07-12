@@ -16,22 +16,6 @@ import java.util.List;
 
 public class ParseJsonUtils {
 
-    //JSON Keys
-    private static final String VOTE_COUNT = "vote_count";
-    private static final String MOVIE_ID = "id";
-    private static final String VIDEO = "video";
-    private static final String VOTE_AVERAGE = "vote_average";
-    private static final String TITLE = "title";
-    private static final String POPULARITY = "popularity";
-    private static final String POSTER_PATH = "poster_path";
-    private static final String LANGUAGE = "original_language";
-    private static final String TITLE_ORIGINAL = "original_title";
-    private static final String GENRE_IDS = "genre_ids";
-    private static final String BACKDROP_PATH = "backdrop_path";
-    private static final String ADULT = "adult";
-    private static final String OVERVIEW = "overview";
-    private static final String RELEASE_DATE = "release_date";
-
     public static final String detailsArray = "results";
 
     private static List<MovieItem> movieItems;
@@ -50,7 +34,7 @@ public class ParseJsonUtils {
     }
 
     public class MovieValueHelper {
-        private List<MovieItem> movieItems;
+        private List<MovieItem> results;
         private int page = -1;
         private int total_results = -1;
 
@@ -58,8 +42,8 @@ public class ParseJsonUtils {
             this.page = page;
         }
 
-        public void setMovieItems(List<MovieItem> movieItems) {
-            this.movieItems = movieItems;
+        public void setMovieItems(List<MovieItem> results) {
+            this.results = results;
         }
 
         public void setTotal_results(int total_results) {
@@ -75,7 +59,7 @@ public class ParseJsonUtils {
         }
 
         public List<MovieItem> getMovieItems() {
-            return movieItems;
+            return results;
         }
     }
 

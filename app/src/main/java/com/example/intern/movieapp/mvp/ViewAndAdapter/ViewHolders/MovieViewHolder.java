@@ -12,9 +12,10 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
 
     public MovieViewHolder(@NonNull View itemView) {
         super(itemView);
+        setupView(itemView);
     }
 
     private void setupView(View view) {
-        textView = (TextView) view.findViewById(R.id.textViewSample);
+        textView = view.findViewById(R.id.textViewSample);
     }
 }

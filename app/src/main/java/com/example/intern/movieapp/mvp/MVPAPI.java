@@ -2,6 +2,7 @@ package com.example.intern.movieapp.mvp;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
@@ -14,6 +15,8 @@ public class MVPAPI {
     public interface ViewOperations {
         Context getAppContext();
         Context getActivityContext();
+        void showToast(Toast toast);
+        void notifyDataSetChanged();
     }
 
     public interface PViewOperations {
@@ -29,6 +32,8 @@ public class MVPAPI {
 
     public interface ModelOperations {
         int getItemCount();
-        List<MovieItem> loadMovieData();
+        boolean loadMovieData();
+        boolean hasItems();
+        String getMovieTitle(int index);
     }
 }

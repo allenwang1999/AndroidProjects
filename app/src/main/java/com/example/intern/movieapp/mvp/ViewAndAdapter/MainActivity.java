@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.MVPAPI;
@@ -56,10 +57,6 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
         return getApplicationContext();
     }
 
-    public static MVPAPI.PViewOperations getmPresenter() {
-        return mPresenter;
-    }
-
     public class MovieViewAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
         @NonNull
@@ -80,5 +77,13 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
 
     }
 
+    @Override
+    public void showToast(Toast toast) {
+        toast.show();
+    }
 
+    @Override
+    public void notifyDataSetChanged() {
+        mAdapter.notifyDataSetChanged();
+    }
 }

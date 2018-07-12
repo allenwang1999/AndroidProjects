@@ -16,6 +16,12 @@ public class MainModel implements MVPAPI.ModelOperations {
     public MainModel(MVPAPI.PModelOperations presenter) {
         this.mPresenter = presenter;
     }
+
+    @Override
+    public boolean hasItems() {
+        return movieItems != null;
+    }
+
     @Override
     public int getItemCount() {
         if(movieItems != null) {
@@ -24,16 +30,20 @@ public class MainModel implements MVPAPI.ModelOperations {
             return 0;
         }
     }
-    //TODO put results from JSON to recyclerview
 
     @Override
-    public List<MovieItem> loadMovieData() {
+    public String getMovieTitle(int position) {
+        return movieItems.get(position).getTitle();
+    }
+
+    @Override
+    public boolean loadMovieData() {
         try {
             String jsonResult = NetworkUtils.getResponseFromUrl(NetworkUtils.getMoviesURL());
-            movieItems = ParseJsonUtils.getMovieValuesFromJSON(jsonResult);
+            this.movieItems = ParseJsonUtils.getMovieValuesFromJSON(jsonResult);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return movieItems;
+        return movieItems != null;
     }
 }

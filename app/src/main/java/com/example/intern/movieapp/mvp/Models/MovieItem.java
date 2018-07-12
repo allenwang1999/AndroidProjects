@@ -1,147 +1,147 @@
 package com.example.intern.movieapp.mvp.Models;
 
 public class MovieItem {
-    private String voteCount;
-    private String movieId;
+    private String vote_count;
+    private String id;
     private String video;
-    private String voteAverage;
-    private String titleOfMovie;
+    private String vote_average;
+    private String title;
     private String popularity;
-    private String posterPath;
+    private String poster_path;
     private String language;
-    private String titleOriginal;
-    private String[] genreIds;
-    private String backdropPath;
+    private String original_title;
+    private String[] genre_ids;
+    private String backdrop_path;
     private String adult;
     private String overview;
-    private String releaseDate;
+    private String release_date;
 
-    private int id = -1;
+    private int itemId = -1;
 
     public MovieItem() {
     }
 
-    public MovieItem(int id) {
-        this.id = id;
+    public MovieItem(int itemId) {
+        this.itemId = itemId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setVoteCount(String voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
-    }
-
-    public void setVideo(String video) {
-        this.video = video;
-    }
-
-    public void setVoteAverage(String voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
-    public void setTitleOfMovie(String titleOfMovie) {
-        this.titleOfMovie = titleOfMovie;
-    }
-
-    public void setPopularity(String popularity) {
-        this.popularity = popularity;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setTitleOriginal(String titleOriginal) {
-        this.titleOriginal = titleOriginal;
-    }
-
-    public void setGenreIds(String[] genreIds) {
-        this.genreIds = genreIds;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public void setAdult(String adult) {
-        this.adult = adult;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setAdult(String adult) {
+        this.adult = adult;
     }
 
-    public int getId() {
-        return id;
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 
-    public String getAdult() {
-        return adult;
+    public void setGenre_ids(String[] genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
-    public String getBackdropPath() {
-        return backdropPath;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getLanguage() {
-        return language;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
     }
 
-    public String getOverview() {
-        return overview;
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
     }
 
-    public String getPopularity() {
-        return popularity;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTitleOfMovie() {
-        return titleOfMovie;
+    public void setVideo(String video) {
+        this.video = video;
     }
 
-    public String getTitleOriginal() {
-        return titleOriginal;
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setVote_count(String vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public String getRelease_date() {
+        return release_date;
     }
 
     public String getVideo() {
         return video;
     }
 
-    public String getVoteAverage() {
-        return voteAverage;
+    public String getPopularity() {
+        return popularity;
     }
 
-    public String getVoteCount() {
-        return voteCount;
+    public String getOverview() {
+        return overview;
     }
 
-    public String[] getGenreIds() {
-        return genreIds;
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getAdult() {
+        return adult;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getOriginal_title() {
+        return original_title;
+    }
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public String getVote_count() {
+        return vote_count;
+    }
+
+    public String[] getGenre_ids() {
+        return genre_ids;
     }
 }
