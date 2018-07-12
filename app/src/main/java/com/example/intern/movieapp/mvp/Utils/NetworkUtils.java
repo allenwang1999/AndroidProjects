@@ -15,6 +15,10 @@ import javax.net.ssl.HttpsURLConnection;
 public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
     static final String BASE_URL_DISCOVER_MOVIES = "https://api.themoviedb.org/3/discover/movie";
+    static final String BASE_URL_IMAGES = "https://image.tmdb.org/t/p/";
+
+    //Path values
+    final static String size = "w185";
 
     //Query keys
     final static String apiKey = "api_key";
@@ -47,6 +51,19 @@ public class NetworkUtils {
         URL url = null;
         try {
             url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+    public static URL buildImageUrl(String filePath) {
+        Uri builtUri = Uri.parse(BASE_URL_IMAGES).buildUpon()
+                .appendPath(size)
+                .appendPath(filePath)
+                .build();
+        URL url = null;
+        try {
+            new URL(builtUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

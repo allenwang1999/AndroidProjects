@@ -1,6 +1,8 @@
 package com.example.intern.movieapp.mvp.Models;
 
-public class MovieItem {
+import java.io.Serializable;
+
+public class MovieItem implements Serializable {
     private String vote_count;
     private String id;
     private String video;

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,7 +17,10 @@ import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.MVPAPI;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
+import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperations{
     private MovieViewAdapter mAdapter;
@@ -32,9 +36,7 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
         RecyclerView mList = (RecyclerView) findViewById(R.id.movie_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         mList.setLayoutManager(layoutManager);
         mList.setAdapter(mAdapter);
         mList.setItemAnimator(new DefaultItemAnimator());
@@ -66,8 +68,16 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+        public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, final int i) {
             mPresenter.bindViewHolder(movieViewHolder, i);
+            movieViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(mPresenter.setOnClickListener(movieViewHolder, i));
+
+                }
+            });
+
         }
 
         @Override

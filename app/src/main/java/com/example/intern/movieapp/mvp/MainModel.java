@@ -7,6 +7,7 @@ import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.Utils.NetworkUtils;
 import com.example.intern.movieapp.mvp.Utils.ParseJsonUtils;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,45 @@ public class MainModel implements MVPAPI.ModelOperations {
     }
 
     @Override
-    public String getMovieTitle(int position) {
-        return movieItems.get(position).getTitle();
+    public String getMovieTitle(int index) {
+        return movieItems.get(index).getTitle();
+    }
+
+    @Override
+    public String getOriginalTitle(int index) {
+        return movieItems.get(index).getOriginal_title();
+    }
+
+    @Override
+    public String getRating(int index) {
+        return movieItems.get(index).getVote_average();
+    }
+
+    @Override
+    public String getReleaseDate(int index) {
+        return movieItems.get(index).getRelease_date();
+    }
+
+    @Override
+    public String getImageLocation(int index) {
+        return movieItems.get(index).getPoster_path();
+    }
+
+    @Override
+    public String getSummary(int index) {
+        return movieItems.get(index).getOverview();
+    }
+
+    @Override
+    public String getImageUrl(String imageLocation) {
+        String urlString = null;
+        try {
+            URL url  = NetworkUtils.buildImageUrl(imageLocation);
+            urlString = url.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return urlString;
     }
 
     @Override

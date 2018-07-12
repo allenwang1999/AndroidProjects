@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mvp.ViewAndAdapter.DetailActivity"
+            android:label="Details"
+            android:parentActivityName=".mvp.ViewAndAdapter.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.ViewAndAdapter.MainActivity">
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>
