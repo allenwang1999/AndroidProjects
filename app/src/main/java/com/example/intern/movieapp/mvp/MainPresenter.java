@@ -4,51 +4,38 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
-import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.DetailActivity;
-import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
-public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOperations {
-    private WeakReference<MVPAPI.ViewOperations> mView;
-    private MVPAPI.ModelOperations mModel;
+public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOperations {
+    private WeakReference<MVP_API.ViewOperations> mView;
+    private MVP_API.ModelOperations mModel;
     private static final int LOADER_ID = 2;
 
-    public MainPresenter(MVPAPI.ViewOperations view) {
+    public MainPresenter(MVP_API.ViewOperations view) {
         mView = new WeakReference<>(view);
     }
 
-    private MVPAPI.ViewOperations getView() throws NullPointerException {
+    private MVP_API.ViewOperations getView() throws NullPointerException {
         if(mView != null) return mView.get();
         else throw new NullPointerException("View is unavailable");
     }
 
-    public void setView(MVPAPI.ViewOperations view) {
+    public void setView(MVP_API.ViewOperations view) {
         mView = new WeakReference<>(view);
     }
 
-    public void setModel(MVPAPI.ModelOperations model) {
+    public void setModel(MVP_API.ModelOperations model) {
         mModel = model;
         loadData(1);
     }

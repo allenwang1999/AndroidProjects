@@ -1,7 +1,6 @@
 package com.example.intern.movieapp.mvp.ViewAndAdapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
-import com.example.intern.movieapp.mvp.MVPAPI;
-import com.example.intern.movieapp.mvp.MainModel;
-import com.example.intern.movieapp.mvp.MainPresenter;
+import com.example.intern.movieapp.mvp.MVP_API;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends AppCompatActivity implements MVPAPI.ViewOperations {
-    private static MVPAPI.PViewOperations mPresenter;
+public class DetailActivity extends AppCompatActivity implements MVP_API.ViewOperations {
     private TextView mTitle;
     private ImageView mMoviePoster;
     private TextView mSummary;

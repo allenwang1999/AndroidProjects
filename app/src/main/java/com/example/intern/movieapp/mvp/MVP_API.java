@@ -16,7 +16,7 @@ import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolde
 import java.net.URL;
 import java.util.List;
 
-public class MVPAPI {
+public class MVP_API {
 
     public interface ViewOperations {
         Context getAppContext();

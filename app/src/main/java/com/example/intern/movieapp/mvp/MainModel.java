@@ -1,20 +1,18 @@
 package com.example.intern.movieapp.mvp;
 
-import android.content.Context;
-import android.net.Network;
-
 import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.Utils.NetworkUtils;
 import com.example.intern.movieapp.mvp.Utils.ParseJsonUtils;
+import com.example.intern.movieapp.mvp.data.FavoritesDbHelper;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainModel implements MVPAPI.ModelOperations {
-    private MVPAPI.PModelOperations mPresenter;
+public class MainModel implements MVP_API.ModelOperations {
+    private MVP_API.PModelOperations mPresenter;
     private List<MovieItem> movieItemsList;
-    public MainModel(MVPAPI.PModelOperations presenter) {
+    public MainModel(MVP_API.PModelOperations presenter) {
         this.mPresenter = presenter;
         movieItemsList = new ArrayList<>();
     }

@@ -6,25 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
-import com.example.intern.movieapp.mvp.MVPAPI;
+import com.example.intern.movieapp.mvp.MVP_API;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
-import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
+import com.example.intern.movieapp.mvp.data.FavoritesDbHelper;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperations{
+public class MainActivity extends AppCompatActivity implements MVP_API.ViewOperations{
     private MovieViewAdapter mAdapter;
-    private static MVPAPI.PViewOperations mPresenter;
+    private static MVP_API.PViewOperations mPresenter;
     private EndlessRecyclerViewScrollListener scrollListener;
     private RecyclerView mList;
     @Override
