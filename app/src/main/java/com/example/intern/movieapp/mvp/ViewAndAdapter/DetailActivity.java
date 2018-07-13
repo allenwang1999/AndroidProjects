@@ -13,6 +13,7 @@ import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.MVPAPI;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
+import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity implements MVPAPI.ViewOperations {
     private static MVPAPI.PViewOperations mPresenter;
@@ -26,24 +27,27 @@ public class DetailActivity extends AppCompatActivity implements MVPAPI.ViewOper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        setupViews();
-        setupMVP();
-        getViewDetails();
+        Bundle bundle = getViewDetails();
+        setupViews(bundle);
     }
 
-    private void getViewDetails() {
+    private Bundle getViewDetails() {
         Bundle bundle = getIntent().getBundleExtra("movie-details");
+        return bundle;
     }
 
-    private void setupMVP() {
-
-    }
-    private void setupViews() {
+    private void setupViews(Bundle bundle) {
         mTitle = findViewById(R.id.textViewTitle);
+        mTitle.setText(bundle.getString("movie-title"));
         mMoviePoster = findViewById(R.id.imageViewPoster);
+        Picasso.get().setLoggingEnabled(true);
+        Picasso.get().load(bundle.getString("image-url")).into(mMoviePoster);
         mSummary = findViewById(R.id.textViewSummary);
+        mSummary.setText(bundle.getString("summary"));
         mReleaseDate = findViewById(R.id.textViewReleaseDate);
+        mReleaseDate.setText(bundle.getString("date"));
         mUserRating = findViewById(R.id.textViewUserRating);
+        mUserRating.setText(bundle.getString("rating") + " / 10");
     }
 
     @Override

@@ -48,5 +48,6 @@ public class MVPAPI {
         String getImageLocation(int index);
         String getSummary(int index);
         String getImageUrl(String imageLocation);
+        String getImageUrlLarge(String imageLocation);
     }
 }

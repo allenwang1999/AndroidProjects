@@ -17,8 +17,6 @@ public class NetworkUtils {
     static final String BASE_URL_DISCOVER_MOVIES = "https://api.themoviedb.org/3/discover/movie";
     static final String BASE_URL_IMAGES = "https://image.tmdb.org/t/p/";
 
-    //Path values
-    final static String size = "w185";
 
     //Query keys
     final static String apiKey = "api_key";
@@ -56,14 +54,14 @@ public class NetworkUtils {
         }
         return url;
     }
-    public static URL buildImageUrl(String filePath) {
+    public static URL buildImageUrl(String filePath, String size) {
         Uri builtUri = Uri.parse(BASE_URL_IMAGES).buildUpon()
                 .appendPath(size)
-                .appendPath(filePath)
+                .appendPath(filePath.substring(1))
                 .build();
         URL url = null;
         try {
-            new URL(builtUri.toString());
+            url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

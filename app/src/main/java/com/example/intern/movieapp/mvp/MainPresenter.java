@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOperations {
     private WeakReference<MVPAPI.ViewOperations> mView;
@@ -63,7 +66,6 @@ public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOpera
                         getView().showToast(Toast.makeText(getActivityContext(), "Error Loading Data.", Toast.LENGTH_SHORT));
                     } else {
                         getView().notifyDataSetChanged();
-                        getView().showToast(Toast.makeText(getActivityContext(), "Data loaded!", Toast.LENGTH_SHORT));
                     }
                 }
             }.execute();
@@ -88,7 +90,9 @@ public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOpera
 
     @Override
     public void bindViewHolder(MovieViewHolder holder, int position) {
-        holder.textView.setText(mModel.getMovieTitle(position));
+        String posterLocation = mModel.getImageLocation(position);
+        String posterUrl = mModel.getImageUrlLarge(posterLocation);
+        Picasso.get().load(posterUrl).into(holder.imageView);
     }
 
     @Override

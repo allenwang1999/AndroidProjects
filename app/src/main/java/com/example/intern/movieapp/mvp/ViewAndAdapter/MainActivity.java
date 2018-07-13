@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
         RecyclerView mList = (RecyclerView) findViewById(R.id.movie_list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mList.setLayoutManager(layoutManager);
         mList.setAdapter(mAdapter);
         mList.setItemAnimator(new DefaultItemAnimator());

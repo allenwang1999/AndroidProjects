@@ -65,14 +65,29 @@ public class MainModel implements MVPAPI.ModelOperations {
     @Override
     public String getImageUrl(String imageLocation) {
         String urlString = null;
+        String size = "w185";
         try {
-            URL url  = NetworkUtils.buildImageUrl(imageLocation);
+            URL url  = NetworkUtils.buildImageUrl(imageLocation, size);
             urlString = url.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return urlString;
     }
+
+    @Override
+    public String getImageUrlLarge(String imageLocation) {
+        String urlString = null;
+        String size = "w342";
+        try {
+            URL url = NetworkUtils.buildImageUrl(imageLocation, size);
+            urlString = url.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return urlString;
+    }
+
 
     @Override
     public boolean loadMovieData() {
