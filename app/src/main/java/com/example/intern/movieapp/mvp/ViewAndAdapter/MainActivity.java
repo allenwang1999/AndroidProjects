@@ -25,6 +25,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperations{
     private MovieViewAdapter mAdapter;
     private static MVPAPI.PViewOperations mPresenter;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private RecyclerView mList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +37,16 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
 
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
-        RecyclerView mList = (RecyclerView) findViewById(R.id.movie_list);
+        mList = findViewById(R.id.movie_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mList.setLayoutManager(layoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                mPresenter.onLoadMore(page, totalItemsCount, view);
+            }
+        };
+        mList.addOnScrollListener(scrollListener);
         mList.setAdapter(mAdapter);
         mList.setItemAnimator(new DefaultItemAnimator());
     }
@@ -68,12 +77,12 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, final int i) {
+        public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, int i) {
             mPresenter.bindViewHolder(movieViewHolder, i);
             movieViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(mPresenter.setOnClickListener(movieViewHolder, i));
+                    startActivity(mPresenter.setOnClickListener(movieViewHolder, movieViewHolder.getAdapterPosition()));
 
                 }
             });
@@ -94,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements MVPAPI.ViewOperat
 
     @Override
     public void notifyDataSetChanged() {
-        mAdapter.notifyDataSetChanged();
+        mList.post(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

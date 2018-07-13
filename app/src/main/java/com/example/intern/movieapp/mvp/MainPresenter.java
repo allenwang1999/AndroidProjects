@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,15 +50,15 @@ public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOpera
 
     public void setModel(MVPAPI.ModelOperations model) {
         mModel = model;
-        loadData();
+        loadData(1);
     }
 
-    private void loadData() {
+    private void loadData(final int page) {
         try {
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Void... voids) {
-                    return mModel.loadMovieData();
+                    return mModel.loadMovieData(page);
                 }
 
                 @Override
@@ -92,7 +93,9 @@ public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOpera
     public void bindViewHolder(MovieViewHolder holder, int position) {
         String posterLocation = mModel.getImageLocation(position);
         String posterUrl = mModel.getImageUrlLarge(posterLocation);
-        Picasso.get().load(posterUrl).into(holder.imageView);
+        if(posterUrl != null && posterUrl.length() != 0) {
+            Picasso.get().load(posterUrl).into(holder.imageView);
+        }
     }
 
     @Override
@@ -125,6 +128,12 @@ public class MainPresenter implements MVPAPI.PViewOperations, MVPAPI.PModelOpera
         bundle.putString(RATING, rating);
         bundle.putString(DATE, date);
         return bundle;
+    }
+
+    @Override
+    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+        loadData(page);
+        getView().notifyDataSetChanged();
     }
 
 

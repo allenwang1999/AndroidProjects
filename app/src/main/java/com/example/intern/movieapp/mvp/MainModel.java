@@ -13,20 +13,21 @@ import java.util.List;
 
 public class MainModel implements MVPAPI.ModelOperations {
     private MVPAPI.PModelOperations mPresenter;
-    public List<MovieItem> movieItems;
+    private List<MovieItem> movieItemsList;
     public MainModel(MVPAPI.PModelOperations presenter) {
         this.mPresenter = presenter;
+        movieItemsList = new ArrayList<>();
     }
 
     @Override
     public boolean hasItems() {
-        return movieItems != null;
+        return movieItemsList != null;
     }
 
     @Override
     public int getItemCount() {
-        if(movieItems != null) {
-            return movieItems.size();
+        if(movieItemsList != null) {
+            return movieItemsList.size();
         } else {
             return 0;
         }
@@ -34,32 +35,32 @@ public class MainModel implements MVPAPI.ModelOperations {
 
     @Override
     public String getMovieTitle(int index) {
-        return movieItems.get(index).getTitle();
+        return movieItemsList.get(index).getTitle();
     }
 
     @Override
     public String getOriginalTitle(int index) {
-        return movieItems.get(index).getOriginal_title();
+        return movieItemsList.get(index).getOriginal_title();
     }
 
     @Override
     public String getRating(int index) {
-        return movieItems.get(index).getVote_average();
+        return movieItemsList.get(index).getVote_average();
     }
 
     @Override
     public String getReleaseDate(int index) {
-        return movieItems.get(index).getRelease_date();
+        return movieItemsList.get(index).getRelease_date();
     }
 
     @Override
     public String getImageLocation(int index) {
-        return movieItems.get(index).getPoster_path();
+        return movieItemsList.get(index).getPoster_path();
     }
 
     @Override
     public String getSummary(int index) {
-        return movieItems.get(index).getOverview();
+        return movieItemsList.get(index).getOverview();
     }
 
     @Override
@@ -77,11 +78,13 @@ public class MainModel implements MVPAPI.ModelOperations {
 
     @Override
     public String getImageUrlLarge(String imageLocation) {
-        String urlString = null;
+        String urlString = "";
         String size = "w342";
         try {
             URL url = NetworkUtils.buildImageUrl(imageLocation, size);
-            urlString = url.toString();
+            if(url != null) {
+                urlString = url.toString();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,13 +93,15 @@ public class MainModel implements MVPAPI.ModelOperations {
 
 
     @Override
-    public boolean loadMovieData() {
+    public boolean loadMovieData(int page) {
         try {
-            String jsonResult = NetworkUtils.getResponseFromUrl(NetworkUtils.getMoviesURL());
-            this.movieItems = ParseJsonUtils.getMovieValuesFromJSON(jsonResult);
+            String jsonResult = NetworkUtils.getResponseFromUrl(NetworkUtils.getMoviesURL(page));
+            List<MovieItem> movieItems = ParseJsonUtils.getMovieValuesFromJSON(jsonResult);
+            assert movieItems != null;
+            this.movieItemsList.addAll(movieItems);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return movieItems != null;
+        return movieItemsList != null;
     }
 }

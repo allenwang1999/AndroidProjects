@@ -14,37 +14,36 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
-    static final String BASE_URL_DISCOVER_MOVIES = "https://api.themoviedb.org/3/discover/movie";
-    static final String BASE_URL_IMAGES = "https://image.tmdb.org/t/p/";
+    private static final String BASE_URL_DISCOVER_MOVIES = "https://api.themoviedb.org/3/discover/movie";
+    private static final String BASE_URL_IMAGES = "https://image.tmdb.org/t/p/";
 
 
     //Query keys
-    final static String apiKey = "api_key";
-    final static String language = "language";
-    final static String sort = "sort_by";
-    final static String includeAdult = "include_adult";
-    final static String includeVideo = "include_video";
-    final static String page = "page";
+    private final static String apiKey = "api_key";
+    private final static String language = "language";
+    private final static String sort = "sort_by";
+    private final static String includeAdult = "include_adult";
+    private final static String includeVideo = "include_video";
+    private final static String page = "page";
 
     //Query params
-    final static String API_KEY="2092cf092c4fc7a2ebee85e8c66a1af8";
-    final static String LANGUAGE="en_US";
-    final static String SORT = "popularity.desc";
-    final static String INCLUDE_ADULT = "false";
-    final static String INCLUDE_VIDEO = "false";
-    final static String PAGE = "1";
+    private final static String API_KEY="2092cf092c4fc7a2ebee85e8c66a1af8";
+    private final static String LANGUAGE="en_US";
+    private final static String SORT = "popularity.desc";
+    private final static String INCLUDE_ADULT = "false";
+    private final static String INCLUDE_VIDEO = "false";
 
-    public static URL getMoviesURL() {
-        return buildUrl();
+    public static URL getMoviesURL(int page) {
+        return buildUrl(page);
     }
-    public static URL buildUrl() {
+    private static URL buildUrl(int pageNum) {
         Uri builtUri = Uri.parse(BASE_URL_DISCOVER_MOVIES).buildUpon()
                 .appendQueryParameter(apiKey, API_KEY)
                 .appendQueryParameter(language, LANGUAGE)
                 .appendQueryParameter(sort, SORT)
                 .appendQueryParameter(includeAdult, INCLUDE_ADULT)
                 .appendQueryParameter(includeVideo, INCLUDE_VIDEO)
-                .appendQueryParameter(page, PAGE)
+                .appendQueryParameter(page, Integer.toString(pageNum))
                 .build();
         URL url = null;
         try {
@@ -55,15 +54,17 @@ public class NetworkUtils {
         return url;
     }
     public static URL buildImageUrl(String filePath, String size) {
-        Uri builtUri = Uri.parse(BASE_URL_IMAGES).buildUpon()
-                .appendPath(size)
-                .appendPath(filePath.substring(1))
-                .build();
         URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        if(filePath != null) {
+            Uri builtUri = Uri.parse(BASE_URL_IMAGES).buildUpon()
+                    .appendPath(size)
+                    .appendPath(filePath.substring(1))
+                    .build();
+            try {
+                url = new URL(builtUri.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
         return url;
     }

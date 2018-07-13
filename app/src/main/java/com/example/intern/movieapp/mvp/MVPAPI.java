@@ -3,6 +3,7 @@ package com.example.intern.movieapp.mvp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class MVPAPI {
         void bindViewHolder(MovieViewHolder holder, int position);
         Intent setOnClickListener(MovieViewHolder holder, int position);
         Bundle getViewDetails(int position);
+        void onLoadMore(int page, int totalItemsCount, RecyclerView view);
     }
 
     public interface PModelOperations {
@@ -39,7 +41,7 @@ public class MVPAPI {
 
     public interface ModelOperations {
         int getItemCount();
-        boolean loadMovieData();
+        boolean loadMovieData(int page);
         boolean hasItems();
         String getMovieTitle(int index);
         String getOriginalTitle(int index);
