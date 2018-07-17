@@ -14,12 +14,12 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "favorites.db";
     private static final String TABLE_NAME = "favortiesTable";
     private static final String COL_1 = "_id";
-    private static final String COL_2 = "originalTitle";
-    private static final String COL_3 = "smallImagePath";
-    private static final String COL_4 = "bigImagePath";
-    private static final String COL_5 = "averageVote";
-    private static final String COL_6 = "releaseDate";
-    private static final String COL_7 = "summary";
+    public static final String COL_2 = "originalTitle";
+    public static final String COL_3 = "smallImagePath";
+    public static final String COL_4 = "bigImagePath";
+    public static final String COL_5 = "averageVote";
+    public static final String COL_6 = "releaseDate";
+    public static final String COL_7 = "summary";
 
     private static final int DATABASE_VERSION = 2;
 

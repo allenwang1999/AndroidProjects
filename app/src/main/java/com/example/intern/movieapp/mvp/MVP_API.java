@@ -33,6 +33,8 @@ public class MVP_API {
         Bundle getViewDetails(int position);
         void onLoadMore(int page, int totalItemsCount, RecyclerView view);
         void onActivityResult(int requestCode, int resultCode, Intent data);
+        void clearViews(int itemCount);
+        void showFavoriteViews();
     }
 
     public interface PModelOperations {
@@ -41,6 +43,7 @@ public class MVP_API {
     }
 
     public interface ModelOperations {
+        void clearItems();
         int getItemCount();
         boolean loadMovieData(int page);
         boolean hasItems();
@@ -55,5 +58,8 @@ public class MVP_API {
         void loadIntoDatabase(Bundle bundle);
         void deleteFromDatabase(String string);
         boolean existsInDatabase(String string);
+        void showFavoriteViews();
+        int getItemId(int index);
+        void deleteFromList(String title);
     }
 }

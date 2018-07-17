@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.DetailActivity;
+import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -83,7 +84,7 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         String posterLocation = mModel.getImageLocation(position);
         String posterUrl = mModel.getImageUrlLarge(posterLocation);
         if(posterUrl != null && posterUrl.length() != 0) {
-            Picasso.get().load(posterUrl).into(holder.imageView);
+            Picasso.get().load(posterUrl).placeholder(R.drawable.ic_launcher_background).into(holder.imageView);
         }
     }
 
@@ -105,6 +106,7 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         final String DATE = "date";
         final String EXISTS_IN_DATABASE = "exists-in-database";
         final String IMAGE_URL_LARGE = "large-image-url";
+        final String ITEM_ID = "item-id";
         Bundle bundle = new Bundle();
         String movieTitle = mModel.getOriginalTitle(position);
         String posterLocation = mModel.getImageLocation(position);
@@ -122,6 +124,7 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         bundle.putString(SUMMARY, summary);
         bundle.putString(RATING, rating);
         bundle.putString(DATE, date);
+        bundle.putInt(ITEM_ID, mModel.getItemId(position));
         return bundle;
     }
 
@@ -140,8 +143,24 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
                 mModel.loadIntoDatabase(bundle);
             } else {
                 mModel.deleteFromDatabase(bundle.getString("movie-title"));
+                if(bundle.getInt("item-id") == 1) {
+                    mModel.deleteFromList(bundle.getString("movie-title"));
+                }
+
             }
         }
+        getView().notifyDataSetChanged();
+    }
+
+    @Override
+    public void clearViews(int itemCount) {
+        if(itemCount > 0) mModel.clearItems();
+    }
+
+    @Override
+    public void showFavoriteViews() {
+        mModel.showFavoriteViews();
+        getView().notifyDataSetChanged();
     }
 
     @Override

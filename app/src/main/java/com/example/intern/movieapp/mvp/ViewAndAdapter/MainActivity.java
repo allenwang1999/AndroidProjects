@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,12 +21,11 @@ import com.example.intern.movieapp.mvp.MVP_API;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
-import com.example.intern.movieapp.mvp.data.FavoritesDbHelper;
 
 public class MainActivity extends AppCompatActivity implements MVP_API.ViewOperations{
     private MovieViewAdapter mAdapter;
     private static MVP_API.PViewOperations mPresenter;
-    private EndlessRecyclerViewScrollListener scrollListener;
+    private EndlessRecyclerViewScrollListener mScrollListener;
     private RecyclerView mList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,13 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
         mList = findViewById(R.id.movie_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mList.setLayoutManager(layoutManager);
-        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+        mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 mPresenter.onLoadMore(page, totalItemsCount, view);
             }
         };
-        mList.addOnScrollListener(scrollListener);
+        mList.addOnScrollListener(mScrollListener);
         mList.setAdapter(mAdapter);
         mList.setItemAnimator(new DefaultItemAnimator());
     }
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
                 @Override
                 public void onClick(View view) {
                     startActivityForResult(mPresenter.setOnClickListener(movieViewHolder, movieViewHolder.getAdapterPosition()), 1);
-
                 }
             });
 
@@ -92,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
             return mPresenter.getItemCount();
         }
 
+        public void clear() {
+            while(getItemCount() != 0) {
+                int itemCount = getItemCount();
+                mPresenter.clearViews(itemCount);
+                notifyItemRangeRemoved(0, itemCount);
+            }
+        }
+
     }
 
     @Override
@@ -100,6 +109,23 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
         mPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movieview, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.favoriteView) {
+            mList.removeOnScrollListener(mScrollListener);
+            mAdapter.clear();
+            mPresenter.showFavoriteViews();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void showToast(Toast toast) {
         toast.show();

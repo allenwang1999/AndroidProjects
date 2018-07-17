@@ -12,6 +12,7 @@ import com.example.intern.movieapp.R;
 public class MovieViewHolder extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public ConstraintLayout constraintLayout;
+    public TextView test;
 
     public MovieViewHolder(@NonNull View itemView) {
         super(itemView);
