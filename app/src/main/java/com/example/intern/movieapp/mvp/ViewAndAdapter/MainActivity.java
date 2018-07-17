@@ -2,6 +2,7 @@ package com.example.intern.movieapp.mvp.ViewAndAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,21 +27,34 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     private MovieViewAdapter mAdapter;
     private static MVP_API.PViewOperations mPresenter;
     private EndlessRecyclerViewScrollListener mScrollListener;
+    private GridLayoutManager mLayoutManager;
     private RecyclerView mList;
+    private static final String RECYCLER_BUNDLE_KEY = "MainActivity.recycler.layout";
+    public Parcelable mSavedRecyclerLayoutState;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSavedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_BUNDLE_KEY);
         setContentView(R.layout.activity_main);
         setupViews();
         setupMVP();
     }
 
+    //TODO Add the onSaveInstanceState stuff to the presenter's aSyncTask.
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECYCLER_BUNDLE_KEY, mList.getLayoutManager().onSaveInstanceState());
+    }
+
+
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
         mList = findViewById(R.id.movie_list);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-        mList.setLayoutManager(layoutManager);
-        mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+        mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mList.setLayoutManager(mLayoutManager);
+        mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 mPresenter.onLoadMore(page, totalItemsCount, view);
@@ -123,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
             mList.removeOnScrollListener(mScrollListener);
             mAdapter.clear();
             mPresenter.showFavoriteViews();
+        } else if(itemId == R.id.popularView) {
+            setupViews();
+            setupMVP();
         }
         return super.onOptionsItemSelected(item);
     }

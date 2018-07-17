@@ -87,8 +87,4 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME, null);
         return cursor;
     }
-
-    //TODO Finish creating database
-    //Use https://developer.android.com/training/basics/intents/result to get a result of clicking favorite button from
-    //DetailIntent
 }

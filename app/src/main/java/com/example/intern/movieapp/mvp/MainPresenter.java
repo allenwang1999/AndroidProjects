@@ -57,6 +57,7 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
                         getView().showToast(Toast.makeText(getActivityContext(), "Error Loading Data.", Toast.LENGTH_SHORT));
                     } else {
                         getView().notifyDataSetChanged();
+
                     }
                 }
             }.execute();
