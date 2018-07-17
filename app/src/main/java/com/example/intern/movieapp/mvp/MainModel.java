@@ -1,5 +1,10 @@
 package com.example.intern.movieapp.mvp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+
 import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.Utils.NetworkUtils;
 import com.example.intern.movieapp.mvp.Utils.ParseJsonUtils;
@@ -9,12 +14,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+import static com.example.intern.movieapp.mvp.data.FavoritesDbHelper.COL_2;
+
 public class MainModel implements MVP_API.ModelOperations {
     private MVP_API.PModelOperations mPresenter;
     private List<MovieItem> movieItemsList;
+    private FavoritesDbHelper dbHelper;
     public MainModel(MVP_API.PModelOperations presenter) {
         this.mPresenter = presenter;
         movieItemsList = new ArrayList<>();
+        dbHelper = new FavoritesDbHelper(mPresenter.getAppContext());
     }
 
     @Override
@@ -101,5 +111,21 @@ public class MainModel implements MVP_API.ModelOperations {
             e.printStackTrace();
         }
         return movieItemsList != null;
+    }
+
+    @Override
+    public void loadIntoDatabase(Bundle bundle) {
+        dbHelper.insertData(bundle.getString("movie-title"), bundle.getString("image-url"), bundle.getString("large-image-url"), bundle.getString("rating"),
+                bundle.getString("date"), bundle.getString("summary"));
+    }
+
+    @Override
+    public void deleteFromDatabase(String string) {
+        dbHelper.deleteData(string);
+    }
+
+    @Override
+    public boolean existsInDatabase(String string) {
+        return dbHelper.existsInDatabase(string);
     }
 }

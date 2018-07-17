@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOperations {
     private WeakReference<MVP_API.ViewOperations> mView;
     private MVP_API.ModelOperations mModel;
@@ -101,7 +103,8 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         final String SUMMARY = "summary";
         final String RATING = "rating";
         final String DATE = "date";
-
+        final String EXISTS_IN_DATABASE = "exists-in-database";
+        final String IMAGE_URL_LARGE = "large-image-url";
         Bundle bundle = new Bundle();
         String movieTitle = mModel.getOriginalTitle(position);
         String posterLocation = mModel.getImageLocation(position);
@@ -109,6 +112,11 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         String summary = mModel.getSummary(position);
         String rating = mModel.getRating(position);
         String date = mModel.getReleaseDate(position);
+        String largePosterLocation = mModel.getImageLocation(position);
+        String largePosterUrl = mModel.getImageUrlLarge(largePosterLocation);
+        boolean exists = mModel.existsInDatabase(movieTitle);
+        bundle.putString(IMAGE_URL_LARGE, largePosterUrl);
+        bundle.putBoolean(EXISTS_IN_DATABASE, exists);
         bundle.putString(MOVIE_TITLE, movieTitle);
         bundle.putString(IMAGE_URL, imageUrl);
         bundle.putString(SUMMARY, summary);
@@ -123,6 +131,18 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         getView().notifyDataSetChanged();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            Bundle bundle = data.getBundleExtra("movie-details");
+            boolean favorite = data.getBooleanExtra("favorite", false);
+            if(favorite) {
+                mModel.loadIntoDatabase(bundle);
+            } else {
+                mModel.deleteFromDatabase(bundle.getString("movie-title"));
+            }
+        }
+    }
 
     @Override
     public Context getAppContext() {

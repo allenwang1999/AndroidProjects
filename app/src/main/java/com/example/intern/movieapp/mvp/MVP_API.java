@@ -32,6 +32,7 @@ public class MVP_API {
         Intent setOnClickListener(MovieViewHolder holder, int position);
         Bundle getViewDetails(int position);
         void onLoadMore(int page, int totalItemsCount, RecyclerView view);
+        void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
     public interface PModelOperations {
@@ -51,5 +52,8 @@ public class MVP_API {
         String getSummary(int index);
         String getImageUrl(String imageLocation);
         String getImageUrlLarge(String imageLocation);
+        void loadIntoDatabase(Bundle bundle);
+        void deleteFromDatabase(String string);
+        boolean existsInDatabase(String string);
     }
 }
