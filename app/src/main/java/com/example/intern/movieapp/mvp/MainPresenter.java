@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
+import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.DetailActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -24,6 +29,8 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
     private WeakReference<MVP_API.ViewOperations> mView;
     private MVP_API.ModelOperations mModel;
     private static final int LOADER_ID = 2;
+    private Parcelable mSavedInstanceState;
+    private GridLayoutManager mLayoutManager;
 
     public MainPresenter(MVP_API.ViewOperations view) {
         mView = new WeakReference<>(view);
@@ -38,9 +45,13 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
         mView = new WeakReference<>(view);
     }
 
-    public void setModel(MVP_API.ModelOperations model) {
+    public void setModel(MVP_API.ModelOperations model, ArrayList<MovieItem> movieItemsList) {
         mModel = model;
-        loadData(1);
+        if(movieItemsList == null) {
+            loadData(1);
+        } else {
+            mModel.setArrayList(movieItemsList);
+        }
     }
 
     private void loadData(final int page) {
@@ -57,7 +68,6 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
                         getView().showToast(Toast.makeText(getActivityContext(), "Error Loading Data.", Toast.LENGTH_SHORT));
                     } else {
                         getView().notifyDataSetChanged();
-
                     }
                 }
             }.execute();
@@ -182,6 +192,11 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public ArrayList<MovieItem> getMovieItemsListToView() {
+        return mModel.getMovieItemsList();
     }
 
 }

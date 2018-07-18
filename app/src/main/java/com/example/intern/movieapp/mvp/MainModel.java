@@ -2,6 +2,7 @@ package com.example.intern.movieapp.mvp;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,7 +24,7 @@ import static com.example.intern.movieapp.mvp.data.FavoritesDbHelper.COL_7;
 
 public class MainModel implements MVP_API.ModelOperations {
     private MVP_API.PModelOperations mPresenter;
-    private List<MovieItem> movieItemsList;
+    private ArrayList<MovieItem> movieItemsList;
     private FavoritesDbHelper dbHelper;
     public MainModel(MVP_API.PModelOperations presenter) {
         this.mPresenter = presenter;
@@ -169,5 +170,15 @@ public class MainModel implements MVP_API.ModelOperations {
                 movieItemsList.remove(i);
             }
         }
+    }
+
+    @Override
+    public ArrayList<MovieItem> getMovieItemsList() {
+        return movieItemsList;
+    }
+
+    @Override
+    public void setArrayList(ArrayList<MovieItem> movieItems) {
+        this.movieItemsList = movieItems;
     }
 }

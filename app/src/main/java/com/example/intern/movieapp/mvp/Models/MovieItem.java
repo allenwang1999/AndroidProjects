@@ -1,8 +1,11 @@
 package com.example.intern.movieapp.mvp.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class MovieItem implements Serializable {
+public class MovieItem implements Parcelable {
     private String vote_count;
     private String id;
     private String video;
@@ -26,6 +29,28 @@ public class MovieItem implements Serializable {
     public MovieItem(int itemId) {
         this.itemId = itemId;
     }
+
+    protected MovieItem(Parcel in) {
+        vote_average = in.readString();
+        title = in.readString();
+        poster_path = in.readString();
+        original_title = in.readString();
+        overview = in.readString();
+        release_date = in.readString();
+        itemId = in.readInt();
+    }
+
+    public static final Creator<MovieItem> CREATOR = new Creator<MovieItem>() {
+        @Override
+        public MovieItem createFromParcel(Parcel in) {
+            return new MovieItem(in);
+        }
+
+        @Override
+        public MovieItem[] newArray(int size) {
+            return new MovieItem[size];
+        }
+    };
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
@@ -145,5 +170,21 @@ public class MovieItem implements Serializable {
 
     public String[] getGenre_ids() {
         return genre_ids;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(original_title);
+        parcel.writeString(poster_path);
+        parcel.writeString(vote_average);
+        parcel.writeString(release_date);
+        parcel.writeString(overview);
+        parcel.writeInt(itemId);
     }
 }

@@ -16,6 +16,7 @@ import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MVP_API {
@@ -37,6 +38,8 @@ public class MVP_API {
         void onActivityResult(int requestCode, int resultCode, Intent data);
         void clearViews(int itemCount);
         void showFavoriteViews();
+        ArrayList<MovieItem> getMovieItemsListToView();
+
     }
 
     public interface PModelOperations {
@@ -63,5 +66,7 @@ public class MVP_API {
         void showFavoriteViews();
         int getItemId(int index);
         void deleteFromList(String title);
+        ArrayList<MovieItem> getMovieItemsList();
+        void setArrayList(ArrayList<MovieItem> movieItems);
     }
 }

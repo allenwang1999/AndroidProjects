@@ -3,6 +3,7 @@ package com.example.intern.movieapp.mvp.ViewAndAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,11 @@ import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.MVP_API;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
+import com.example.intern.movieapp.mvp.Models.MovieItem;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MVP_API.ViewOperations{
     private MovieViewAdapter mAdapter;
@@ -29,25 +34,38 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     private EndlessRecyclerViewScrollListener mScrollListener;
     private GridLayoutManager mLayoutManager;
     private RecyclerView mList;
-    private static final String RECYCLER_BUNDLE_KEY = "MainActivity.recycler.layout";
-    public Parcelable mSavedRecyclerLayoutState;
+    private ArrayList<MovieItem> mMovieList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSavedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_BUNDLE_KEY);
         setContentView(R.layout.activity_main);
         setupViews();
+        if(savedInstanceState != null) {
+            mMovieList = savedInstanceState.getParcelableArrayList("movieList");
+        }
         setupMVP();
     }
 
-    //TODO Add the onSaveInstanceState stuff to the presenter's aSyncTask.
+    private void setmArrayList () {
+        mMovieList = mPresenter.getMovieItemsListToView();
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(RECYCLER_BUNDLE_KEY, mList.getLayoutManager().onSaveInstanceState());
+        setmArrayList();
+        if(mMovieList != null) {
+            outState.putParcelableArrayList("movieList", mMovieList);
+        }
     }
 
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        mMovieList = savedInstanceState.getParcelableArrayList("movieList");
+    }
+
+    //TODO Add the onSaveInstanceState stuff to the presenter's aSyncTask.
 
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
@@ -68,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     private void setupMVP() {
         MainPresenter presenter = new MainPresenter(this);
         MainModel model = new MainModel(presenter);
-        presenter.setModel(model);
+        presenter.setModel(model, mMovieList);
         mPresenter = presenter;
     }
 

@@ -38,7 +38,6 @@ public class DetailActivity extends AppCompatActivity implements MVP_API.ViewOpe
     }
 
     private void setupViews(final Bundle bundle) {
-        setResult(Activity.RESULT_OK);
         mTitle = findViewById(R.id.textViewTitle);
         mTitle.setText(bundle.getString("movie-title"));
         mMoviePoster = findViewById(R.id.imageViewPoster);
