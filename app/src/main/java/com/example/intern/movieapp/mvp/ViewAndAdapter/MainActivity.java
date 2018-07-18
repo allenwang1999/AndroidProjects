@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         setmArrayList();
-        if(mMovieList != null) {
+        if(mMovieList != null && mMovieList.get(0).getItemId() != 1) {
             outState.putParcelableArrayList("movieList", mMovieList);
         }
     }
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
             mPresenter.showFavoriteViews();
         } else if(itemId == R.id.popularView) {
             setupViews();
+            mMovieList = null;
             setupMVP();
         }
         return super.onOptionsItemSelected(item);

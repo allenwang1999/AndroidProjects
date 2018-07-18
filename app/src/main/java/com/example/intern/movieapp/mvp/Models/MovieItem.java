@@ -31,13 +31,14 @@ public class MovieItem implements Parcelable {
     }
 
     protected MovieItem(Parcel in) {
-        vote_average = in.readString();
         title = in.readString();
-        poster_path = in.readString();
         original_title = in.readString();
-        overview = in.readString();
+        poster_path = in.readString();
+        vote_average = in.readString();
         release_date = in.readString();
+        overview = in.readString();
         itemId = in.readInt();
+
     }
 
     public static final Creator<MovieItem> CREATOR = new Creator<MovieItem>() {
