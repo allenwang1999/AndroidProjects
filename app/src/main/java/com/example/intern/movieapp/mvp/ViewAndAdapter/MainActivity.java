@@ -23,6 +23,7 @@ import com.example.intern.movieapp.mvp.MVP_API;
 import com.example.intern.movieapp.mvp.MainModel;
 import com.example.intern.movieapp.mvp.MainPresenter;
 import com.example.intern.movieapp.mvp.Models.MovieItem;
+import com.example.intern.movieapp.mvp.Utils.LayoutUtils;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     private void setupViews() {
         mAdapter = new MovieViewAdapter();
         mList = findViewById(R.id.movie_list);
-        mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mLayoutManager = new GridLayoutManager(this, LayoutUtils.numberOfColumns(getAppContext()), GridLayoutManager.VERTICAL, false);
         mList.setLayoutManager(mLayoutManager);
         mScrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override

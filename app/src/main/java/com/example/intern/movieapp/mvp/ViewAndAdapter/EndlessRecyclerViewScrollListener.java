@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.intern.movieapp.mvp.Utils.LayoutUtils;
+
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
     private int visibleThreshold = 15;
     private int currentPage = 1;

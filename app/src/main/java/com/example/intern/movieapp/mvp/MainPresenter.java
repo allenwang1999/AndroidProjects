@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.intern.movieapp.R;
 import com.example.intern.movieapp.mvp.Models.MovieItem;
+import com.example.intern.movieapp.mvp.Utils.LayoutUtils;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.DetailActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.MainActivity;
 import com.example.intern.movieapp.mvp.ViewAndAdapter.ViewHolders.MovieViewHolder;
@@ -92,6 +93,8 @@ public class MainPresenter implements MVP_API.PViewOperations, MVP_API.PModelOpe
 
     @Override
     public void bindViewHolder(MovieViewHolder holder, int position) {
+        int padding = LayoutUtils.getPadding(getView().getAppContext());
+        holder.imageView.setPadding(padding, 0, padding, 0);
         String posterLocation = mModel.getImageLocation(position);
         String posterUrl = mModel.getImageUrlLarge(posterLocation);
         if(posterUrl != null && posterUrl.length() != 0) {

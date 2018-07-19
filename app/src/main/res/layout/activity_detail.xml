@@ -1,116 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".mvp.ViewAndAdapter.DetailActivity"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewTitle"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        tools:text="Title of Movie"
-        android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="@+id/guideline"/>
+        android:layout_height="wrap_content">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            tools:text="Title of Movie"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"/>
 
-    <ImageView
-        android:id="@+id/imageViewPoster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:background="@mipmap/ic_launcher"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="@+id/guideline"/>
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/textViewSummaryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/movie_summary"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPoster" />
+        <ImageView
+            android:id="@+id/imageViewPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:background="@mipmap/ic_launcher"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"/>
 
-    <TextView
-        android:id="@+id/textViewSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/textViewSummaryLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSummaryLabel"
-        tools:text="Summary goes here" />
+        <TextView
+            android:id="@+id/textViewSummaryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/movie_summary"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPoster" />
 
-    <TextView
-        android:id="@+id/textViewUserRatingLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/user_rating"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSummary" />
+        <TextView
+            android:id="@+id/textViewSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/textViewSummaryLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSummaryLabel"
+            tools:text="Summary goes here" />
 
-    <TextView
-        android:id="@+id/textViewUserRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewUserRatingLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewUserRatingLabel"
-        app:layout_constraintStart_toEndOf="@+id/textViewUserRatingLabel"
-        app:layout_constraintTop_toTopOf="@+id/textViewUserRatingLabel"
-        tools:text="Rating goes here" />
+        <TextView
+            android:id="@+id/textViewUserRatingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/user_rating"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSummary" />
 
-    <TextView
-        android:id="@+id/textViewReleaseDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/release_date"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUserRatingLabel" />
+        <TextView
+            android:id="@+id/textViewUserRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewUserRatingLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewUserRatingLabel"
+            app:layout_constraintStart_toEndOf="@+id/textViewUserRatingLabel"
+            app:layout_constraintTop_toTopOf="@+id/textViewUserRatingLabel"
+            tools:text="Rating goes here" />
 
-    <TextView
-        android:id="@+id/textViewReleaseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        tools:text="Release date goes here"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewReleaseDateLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewReleaseDateLabel"
-        app:layout_constraintStart_toEndOf="@+id/textViewReleaseDateLabel"
-        app:layout_constraintTop_toTopOf="@+id/textViewReleaseDateLabel" />
+        <TextView
+            android:id="@+id/textViewReleaseDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/release_date"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserRatingLabel" />
 
-    <Button
-        android:id="@+id/buttonFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewReleaseDateLabel" />
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            tools:text="Release date goes here"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewReleaseDateLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewReleaseDateLabel"
+            app:layout_constraintStart_toEndOf="@+id/textViewReleaseDateLabel"
+            app:layout_constraintTop_toTopOf="@+id/textViewReleaseDateLabel" />
+
+        <Button
+            android:id="@+id/buttonFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textViewReleaseDateLabel" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
