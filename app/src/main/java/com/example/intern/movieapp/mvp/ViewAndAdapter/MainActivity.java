@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements MVP_API.ViewOpera
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         setmArrayList();
-        if(mMovieList != null && mMovieList.get(0).getItemId() != 1) {
+        if(mMovieList != null || mMovieList.size() != 0) {
+            if(mMovieList.get(0).getItemId() != 1)
             outState.putParcelableArrayList("movieList", mMovieList);
         }
     }
